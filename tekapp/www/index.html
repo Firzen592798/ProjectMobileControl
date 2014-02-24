@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/javascript" src="kinetic-v5.0.1.min.js"></script>
+	<script type="text/javascript" src="myJavascript.js"></script>
+    <script type="text/javascript" defer="defer">
+
+
+    var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 1024,
+        height: 500
+    });
+	
+	var layer2 = new Kinetic.Layer({
+	    x: 0,
+		y: 300,
+		width: 300,
+        height: 300
+	});  
+	
+	var a = new Analog(700, 300, 200, 0);
+
+	var b = new Analog(0, 0, 200, 0);
+	var layer = a.getAnalogLayer();
+	a.configureKeyboard(38, 37, 40, 39);
+	var layerb = b.getAnalogLayer();
+
+	var boneco;
+	var imageBoneco = new Image();
+	imageBoneco.onload = function(){
+	    boneco = new Kinetic.Image({
+        x: 100,
+        y: 100,
+        image: imageBoneco,
+        width: 100,
+        height: 100,
+    });
+		layer2.add(boneco);
+	};
+	imageBoneco.src = 'boneco.png';
+	
+	var boneco2;
+	var imageBoneco2 = new Image();
+	imageBoneco2.onload = function(){
+	    boneco2 = new Kinetic.Image({
+        x: 300,
+        y: 100,
+        image: imageBoneco2,
+        width: 100,
+        height: 100,
+    });
+		layer2.add(boneco2);
+		stage.add(layer2);
+		stage.add(layer);
+		stage.add(layerb);
+	};
+	imageBoneco.src = 'boneco.png';
+	imageBoneco2.src = 'boneco.png';
+	function analisarMovimento(){
+		//boneco.move(300, 200);
+		//alert(a.getXMovement());
+		boneco.setX(boneco.getX() + a.getXMovement() / 30);
+		boneco.setY(boneco.getY() + a.getYMovement() / 30);		
+		
+		boneco2.setX(boneco2.getX() + b.getXMovement() / 30);
+		boneco2.setY(boneco2.getY() + b.getYMovement() / 30);		
+		layer2.draw();
+	}
+	setInterval(analisarMovimento,50);
+    </script>
+  </body>
+</html>
